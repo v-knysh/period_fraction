@@ -1,6 +1,6 @@
 import logging
 
-from aiogram import Bot, Dispatcher, types, filters
+from aiogram import Bot, Dispatcher, types
 
 from settings import TG_BOT_API_TOKEN
 
@@ -21,8 +21,4 @@ async def send_welcome(message: types.Message):
     """
     await message.reply("Hi!\nI'm EchoBot!\nPowered by aiogram.")
 
-from bot.report import send_report
 
-send_report = dp.message_handler(
-    filters.RegexpCommandsFilter(regexp_commands=['report_(?P<year>\d{4})_(?P<month>\d{2})_(?P<day>\d{2})'])
-)(send_report) 

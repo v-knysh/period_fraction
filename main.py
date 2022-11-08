@@ -30,8 +30,8 @@ def start():
     if MODE == "poller":
         print("running mode poller")
         from aiogram import executor
-        from bot.poller import dp
+        from bot.bot import dp
         executor.start_polling(dp, skip_updates=True)
-
+        
 if __name__ == "__main__":
     start()

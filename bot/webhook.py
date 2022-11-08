@@ -1,27 +1,25 @@
 import logging
 
-from aiogram import Bot, types, filters
+from aiogram import types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
-from aiogram.dispatcher import Dispatcher
 from aiogram.utils.executor import start_webhook
+
+from bot.bot import dp, bot
 from settings import (
-    TG_BOT_API_TOKEN,
-    HEROKU_APP_NAME,
     WEBHOOK_URL,
     WEBHOOK_PATH,
     WEBAPP_HOST,
     WEBAPP_PORT
 )
 
-bot = Bot(token=TG_BOT_API_TOKEN)
-dp = Dispatcher(bot)
 dp.middleware.setup(LoggingMiddleware())
 
-from bot.report import send_report
 
-send_report = dp.message_handler(
-    filters.RegexpCommandsFilter(regexp_commands=['report_(?P<year>\d{4})_(?P<month>\d{2})_(?P<day>\d{2})'])
-)(send_report) 
+@dp.message_handler()
+async def echo(message: types.Message):
+    logging.warning(f'Recieved a message from {message.from_user}')
+    await bot.send_message(message.chat.id, message.text)
+
 
 async def on_startup(dp):
     logging.warning(
