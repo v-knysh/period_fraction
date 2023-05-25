@@ -44,6 +44,17 @@ class DailyReport:
         return f"Today is day #{days}, its {days/365*100:.2f}% or {common_fraction} of the year"
 
 
+class DailyReportUntil:
+    def __init__(self, until: datetime) -> None:
+        self._until = until
+
+    def __str__(self):
+        days = (self._until - datetime.datetime.now()).days
+        common_fraction = CommonFraction.from_float(days/365, 365)
+        date_string = self._until.strftime("%Y-%m-%d")
+        return f"{days} days left until {date_string}, its {days/365*100:.2f}% or {common_fraction} of the year"
+
+
 if __name__ == "__main__":
     start = datetime.datetime(2022,3,13)
 
@@ -55,6 +66,10 @@ if __name__ == "__main__":
             print(datestring)
         else:
             print(f"{datestring}, {f}")
+    
+    until = datetime.datetime(2023,9,27)
+    print(DailyReportUntil(until))
+    
     
     print()
     print()

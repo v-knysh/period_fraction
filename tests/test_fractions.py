@@ -1,6 +1,6 @@
 import unittest
 
-from fractions import CommonFraction
+from common_fractions import CommonFraction
 
 
 class TestUtils(unittest.TestCase):
